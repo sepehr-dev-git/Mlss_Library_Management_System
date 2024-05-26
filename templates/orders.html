@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <style>
+        body {
+            font-family: 'Bradley Hand', cursive;
+            margin: 0;
+            padding: 0;
+            background: url('static/images/1.jpg') center/cover no-repeat fixed;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #333;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            text-align: center; 
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        h2 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Orders</h1>
+</header>
+
+<nav>
+    <a href="{{ url_for('reader_dashboard') }}">Home</a>
+    <a href="{{ url_for('browse_books') }}">Browse Books</a>
+    <a href="{{ url_for('browse_categories') }}">Browse Categories</a>
+    <a href="{{ url_for('cart') }}">Cart</a>
+    <a href="{{ url_for('my_orders') }}">My Books</a>
+    <a href="{{ url_for('reader_feedback') }}">Feedback</a>
+    <a href="{{ url_for('user_profile') }}">Profile</a>
+    <a href="{{ url_for('reader_logout') }}">Logout</a>
+</nav>
+<section>
+    <center><h2>My Orders</h2></center>
+    <table bgcolor="white">
+        <tr>
+            <th>Order ID</th>
+            <th>Order Details</th>
+        </tr>
+        {% for order, items in orders.items() %}
+        <tr>
+            <td>Order ID: {{ order }}</td>
+            <td>
+                <table>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                    </tr>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.total_price }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+
+</body>
+</html>

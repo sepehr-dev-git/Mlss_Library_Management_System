@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Books</title>
+    <style>
+
+        body {
+            font-family: 'Bradley Hand', cursive;
+            margin: 0;
+            padding: 0;
+            background: url('static/images/1.jpg') center/cover no-repeat fixed;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            background-color: #4CAF50;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background-color: #333;
+            color: #4CAF50;
+        }
+
+        section {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 800px;
+            transition: box-shadow 0.3s;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+
+        .book {
+            margin-bottom: 30px;
+            overflow: hidden;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            transition: transform 0.3s;
+        }
+
+        .book img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .book-info {
+            padding: 10px;
+        }
+
+        .book:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Librarian Dashboard</h1>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('librarian_dashboard') }}">Home</a>
+        <a href="{{ url_for('books') }}">Books</a>
+        <a href="{{ url_for('categories') }}">Categories</a>
+        <a href="{{ url_for('active_readers') }}">Active Readers</a>
+        <a href="{{ url_for('feedbacks') }}">User Feedbacks</a>
+        <a href="{{ url_for('librarian_logout') }}">Logout</a>
+        
+        <form action="{{ url_for('librarian_dashboard') }}" method="post">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" placeholder="Enter book name">
+            <button type="submit">Search</button>
+        </form>
+    </nav>
+    <section>
+        <h2>Books in {{ category.name }} Category</h2>
+        {% for book in books %}
+            <div class="book">
+                <div class="book-info">
+                    <h3>{{ book.name }}</h3>
+                    <p>{{ book.author }}</p>
+                    <p>{{ book.description }}</p>
+                    <p>Quantity: {{ book.quantity }}</p>
+                    <p>Price: {{ book.price }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+
+</body>
+</html>

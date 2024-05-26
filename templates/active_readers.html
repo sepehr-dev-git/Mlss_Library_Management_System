@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Readers</title>
+    <style>
+        body {
+            font-family: 'Bradley Hand', cursive;
+            margin: 0;
+            padding: 0;
+            background: url('static/images/1.jpg') center/cover no-repeat fixed;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            background-color: #4CAF50;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background-color: #333;
+            color: #4CAF50;
+        }
+
+        form {
+            float: right;
+            margin-top: 14px;
+            margin-right: 16px;
+        }
+
+        form label {
+            margin-right: 8px;
+            color: white;
+        }
+
+        form input[type="text"] {
+            padding: 8px;
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        form button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form button:hover {
+            background-color: #333;
+        }
+
+        section {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 20px;
+            transition: box-shadow 0.3s;
+        }
+
+        section:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .book-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative; 
+        }
+
+        .book-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        .book-info {
+            float: left;
+            width: 70%;
+        }
+
+        .book-action {
+            float: right;
+            width: 30%;
+            text-align: center;
+        }
+
+        .book-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .book-author {
+            color: #777;
+        }
+
+        .book-accept,
+        .book-revoke {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .book-revoke {
+            background-color: #f44336;
+        }
+
+        .book-accept:hover,
+        .book-revoke:hover {
+            background-color: #333;
+        }
+
+        .btn-container {
+            position: absolute;
+            top: 10px; 
+            right: 10px; 
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Active Readers</h1>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('librarian_dashboard') }}">Home</a>
+        <a href="{{ url_for('books') }}">Books</a>
+        <a href="{{ url_for('categories') }}">Categories</a>
+        <a href="{{ url_for('active_readers') }}">Active Readers</a>
+        <a href="{{ url_for('feedbacks') }}">User Feedbacks</a>
+        <a href="{{ url_for('librarian_logout') }}">Logout</a>
+        
+        <form action="{{ url_for('search_results') }}" method="post">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" placeholder="Enter book name">
+            <button type="submit">Search</button>
+        </form>
+    </nav>
+    
+    <section>
+        <h2>Pending Orders</h2>
+        {% for order in pending_orders %}
+        <div class="book-item">
+            <div class="book-info">
+                <p>User: {{ order.user_id }}</p> 
+                <p class="book-title">{{ order.product_ids }}</p>
+                <p>Quantity: {{ order.quantity }}</p>
+                <p>Total Price: {{ order.total_price }}</p>
+                <p>Status: {{ order.status }}</p>
+            </div>
+            <div class="book-action">
+                <div class="btn-container">
+                    <form action="{{ url_for('handle_order_status') }}" method="post" id="form{{ order.id }}">
+                        <input type="hidden" name="order_id" value="{{ order.id }}">
+                        {% if order.status == 'Pending' %}
+                            <button type="submit" name="action" value="accept" class="book-accept">Accept</button>
+                            <button type="submit" name="action" value="revoke" class="book-revoke">Revoke</button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+    
+
+</body>
+</html>

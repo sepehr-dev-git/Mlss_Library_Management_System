@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Feedback</title>
+    <style>
+        body {
+            font-family: 'Bradley Hand', cursive;
+            margin: 0;
+            padding: 0;
+            background: url('static/images/9.jpg') center/cover no-repeat fixed;
+        }
+
+        header {
+            background-color: #333;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background-color: #4CAF50;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background-color: #333;
+            color: #4CAF50;
+        }
+
+        form.search-form {
+            float: right;
+            margin-top: 14px;
+            margin-right: 16px;
+        }
+
+        form.search-form label {
+            margin-right: 8px;
+            color: white;
+        }
+
+        form.search-form input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+        }
+
+        form.search-form button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        form.search-form button[type="submit"]:hover {
+            background-color: #333;
+        }
+
+        section {
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px; 
+            text-align: center;
+        }
+
+        section label {
+            margin-right: 8px;
+            color: white;
+            display: block;
+        }
+
+        section textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        section input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+
+        section input[type="submit"]:hover {
+            background-color: #333;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        p {
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        .search form {
+            float: right;
+            margin-top: 14px;
+            margin-right: 16px;
+        }
+
+        .search form label {
+            margin-right: 8px;
+            color: white;
+        }
+
+        .search form input[type="text"] {
+            padding: 8px;
+            border: 1px solid #4CAF50;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .search form button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search form button:hover {
+            background-color: #333;
+        }
+
+        .welcome-message-container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-message {
+            margin-top: 20px;
+            font-family: 'Georgia', serif;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Feedback</h1>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('reader_dashboard') }}">Home</a>
+        <a href="{{ url_for('browse_books') }}">Browse Books</a>
+        <a href="{{ url_for('browse_categories') }}">Browse Categories</a>
+        <a href="{{ url_for('cart') }}">Cart</a>
+        <a href="{{ url_for('my_orders') }}">My Books</a>
+        <a href="{{ url_for('reader_feedback') }}">Feedback</a>
+        <a href="{{ url_for('user_profile') }}">Profile</a>
+        <a href="{{ url_for('reader_logout') }}">Logout</a>
+        <div class="search">
+        <form action="{{ url_for('search_results') }}" method="post">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" placeholder="Enter book name">
+            <button type="submit">Search</button>
+        </form>
+        </div>
+    </nav>
+    
+    <section>
+        <div class="welcome-message-container">
+            <div class="welcome-message">
+                <p><strong>We value your opinion! Please provide your feedback below:</strong></p>
+            </div>
+        </div>
+        <form action="{{ url_for('reader_feedback') }}" method="POST">
+            <label for="feedback"></label>
+            <textarea id="feedback" name="feedback" rows="10" placeholder="Enter your feedback" required></textarea>
+            <input type="submit" value="Submit Feedback">
+        </form>
+    </section>
+
+</body>
+</html>
