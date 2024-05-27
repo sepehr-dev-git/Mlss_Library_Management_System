@@ -1,5 +1,10 @@
 # 📚 Library Management System
 
+[![Python](https://img.shields.io/badge/Python-3.9-blue.svg)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/Flask-2.0.2-green.svg)](https://flask.palletsprojects.com/)
+[![HTML](https://img.shields.io/badge/HTML-5-orange.svg)](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+[![CSS](https://img.shields.io/badge/CSS-3-blue.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+
 ## Overview
 
 The Library Management System is a web-based application designed to efficiently manage the operations of a library. This system provides features for users to browse through available books, search for specific categories, issue books, and provide feedback. Librarians have administrative privileges to manage the entire system, including book management, user management, and feedback management.
