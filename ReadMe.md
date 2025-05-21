@@ -43,7 +43,7 @@ To run the Library Management System on your local machine, follow these steps:
 
 2. **Install dependencies**
     ```bash
-    pip install -r requirements.txt
+    pip install -r requirements.text
     ```
 
 3. **Set up the database**
